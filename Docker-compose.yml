@@ -1,0 +1,18 @@
+version: "3.3"
+
+services:
+   
+   dbpsg-mercadista:
+     build:
+      context: .
+      dockerfile: ./databasefile/Dockerfile
+     environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+     volumes:
+     - db_persistencia_gestion:/var/lib/postgresql/data
+     ports:
+      - "5434:5432"
+volumes:
+   db_persistencia_gestion:
