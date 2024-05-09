@@ -33,7 +33,7 @@ export class Server {
 
     } catch (error) {
       console.log('Error al tratar de conectarse a la DB ', error);
-    }
+    } 
 
   }
 
