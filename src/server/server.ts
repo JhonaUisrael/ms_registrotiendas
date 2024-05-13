@@ -2,7 +2,8 @@ import express, { Express, Response } from 'express';
 import bodyparser from 'body-parser';
 import { dbpostgre } from '../connections/configpostgre.connection';
 import { Usuario } from '../database/usuario.db';
-
+import rutaAlmacen from '../routes/almacen.routes';
+import { Almacen } from '../database/almacen.db';
 
 export class Server {
 
@@ -18,6 +19,8 @@ export class Server {
     this.ConexionBD();
 
     this.middlewares();
+
+    this.routes();
   }
 
   //conexiones BD
@@ -40,8 +43,14 @@ export class Server {
   async sincronize() {
    
     await Usuario.sync({ alter: true });
+    await Almacen.sync({ alter: true });
     console.log("Modelos sincronizados exitosamente!", dbpostgre.models);
 
+  }
+
+  routes(){
+
+    this.app.use('/api/almacen',rutaAlmacen);
   }
 
   middlewares() {
