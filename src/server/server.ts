@@ -4,6 +4,7 @@ import { dbpostgre } from '../connections/configpostgre.connection';
 import { Usuario } from '../database/usuario.db';
 import rutaAlmacen from '../routes/almacen.routes';
 import { Almacen } from '../database/almacen.db';
+import { Producto } from '../database/producto.db';
 
 export class Server {
 
@@ -44,6 +45,7 @@ export class Server {
    
     await Usuario.sync({ alter: true });
     await Almacen.sync({ alter: true });
+    await Producto.sync({ alter: true });
     console.log("Modelos sincronizados exitosamente!", dbpostgre.models);
 
   }

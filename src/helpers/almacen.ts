@@ -1,5 +1,5 @@
 import {Almacen} from '../database/almacen.db';
-import { almacenCrearDTO, almacenVerDTO } from '../models/almacen.model';
+import { almacenCrearDTO, almacenEditarDTO, almacenVerDTO } from '../models/almacen.model';
 
 
 
@@ -25,6 +25,33 @@ const obtenerAlmacenes=async():Promise<almacenVerDTO[]>=>{
     return almacenes;
 };
 
+const inactivarAlmacen=async(id:number):Promise<almacenVerDTO>=>{
+       
+    let almacenes:Almacen[]= (await Almacen.update({estado:'I'},{
+        where:{id,},
+        returning:true
+}))[1];
+
+    return almacenes[0];
+};
+
+const editarAlmacen=async(id:number,editar:almacenEditarDTO):Promise<almacenVerDTO>=>{
+       
+    let almacenes:any= await Almacen.update(editar,{
+        where:{id}
+});
+
+    return almacenes;
+};
+
+const obtenerAlmacenId=async(id:number):Promise<Almacen|null>=>{
+       
+    let almacen= await Almacen.findByPk(id,{
+        raw:true
+});
+
+    return almacen;
+};
 
 
-export {crearAlmacen,obtenerAlmacenes};
+export {crearAlmacen,obtenerAlmacenes,inactivarAlmacen,editarAlmacen,obtenerAlmacenId};

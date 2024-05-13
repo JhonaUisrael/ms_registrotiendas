@@ -5,30 +5,28 @@ import { dbpostgre } from '../connections/configpostgre.connection';
 import generico from './generico.db';
 
 
-export interface AlmacenAttributes extends generico {
+export interface ProductoAttributes extends generico {
   id?: number;
-  Nombre?: string;
-  Direccion?: string;
-  Latitud?: string;
-  Longitud?: string;
+  Nombre: string;
+  FechaCducidad: Date;
+  Precio?:string ;
 
 }
 
 
 
-export class Almacen extends Model<AlmacenAttributes,generico> implements AlmacenAttributes {
+export class Producto extends Model<ProductoAttributes,generico> implements ProductoAttributes {
   public id!: number;
   public Nombre!: string;
-  public Direccion!: string;
-  public Latitud!: string;
-  public Longitud!: string;
+  public FechaCducidad!: Date;
+  public Precio!: string;
 
 
 }
 
 
 
-Almacen.init({
+Producto.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey:true,
@@ -41,18 +39,15 @@ Almacen.init({
     type: DataTypes.STRING
 
   },
-  Direccion: {
-    type: DataTypes.STRING
+  FechaCducidad: {
+    type: DataTypes.DATE
   },
  
-  Latitud: {
+  Precio: {
     type:DataTypes.STRING,
 
   },
-  Longitud: {
-    type:DataTypes.STRING,
 
-  },
   estado: {
     type:DataTypes.CHAR(1),
     defaultValue:'A'
@@ -66,8 +61,8 @@ Almacen.init({
   }
 }, {
   sequelize: dbpostgre,
-  modelName: 'Almacen',
-  tableName:'Almacen'
+  modelName: 'Producto',
+  tableName:'Producto'
 });
 
 

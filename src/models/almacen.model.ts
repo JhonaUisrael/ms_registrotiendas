@@ -5,8 +5,10 @@ interface almacenCrearDTO extends Pick<AlmacenAttributes,'Direccion'|'Latitud'|'
 
 }
 
+interface almacenEditarDTO extends Pick<AlmacenAttributes,'estado'>{}
+
 interface almacenVerDTO extends AlmacenAttributes{
 
 }
 
-export {almacenCrearDTO,almacenVerDTO};
+export {almacenCrearDTO,almacenVerDTO,almacenEditarDTO};
