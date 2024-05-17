@@ -2,9 +2,12 @@ import express, { Express, Response } from 'express';
 import bodyparser from 'body-parser';
 import { dbpostgre } from '../connections/configpostgre.connection';
 import { Usuario } from '../database/usuario.db';
-import rutaAlmacen from '../routes/almacen.routes';
 import { Almacen } from '../database/almacen.db';
 import { Producto } from '../database/producto.db';
+
+import rutaAlmacen from '../routes/almacen.routes';
+import rutaUsuario from '../routes/usuario.routes';
+import rutaUProducto from '../routes/producto.routes';
 
 export class Server {
 
@@ -53,6 +56,10 @@ export class Server {
   routes(){
 
     this.app.use('/api/almacen',rutaAlmacen);
+    this.app.use('/api/usuario',rutaUsuario);
+    this.app.use('/api/producto',rutaUProducto);
+
+    
   }
 
   middlewares() {

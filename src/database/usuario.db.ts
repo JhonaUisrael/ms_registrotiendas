@@ -7,9 +7,9 @@ import generico from './generico.db';
 
 export interface UsuarioAttributes extends generico {
   id?: number;
-  Usuname: string;
-  UsuEmail: string;
-  UsuEstado?: string;
+  NombreUsuario: string;
+  Correo: string;
+  Contrasena: string;
 
 }
 
@@ -17,9 +17,9 @@ export interface UsuarioAttributes extends generico {
 
 export class Usuario extends Model<UsuarioAttributes,generico> implements UsuarioAttributes {
   public id!: number;
-  public Usuname!: string;
-  public UsuEmail!: string;
-  public UsuEstado!: string;
+  public NombreUsuario!: string;
+  public Correo!: string;
+  public Contrasena!: string;
 
 
 }
@@ -35,16 +35,20 @@ export class Usuario extends Model<UsuarioAttributes,generico> implements Usuari
   },
  
 
-  Usuname: {
+  NombreUsuario: {
     type: DataTypes.STRING
 
   },
-  UsuEmail: {
+  Correo: {
     type: DataTypes.STRING
   },
- 
-  UsuEstado: {
+  Contrasena: {
+    type:DataTypes.STRING,
+
+  },
+  estado: {
     type:DataTypes.CHAR(1),
+    defaultValue:'A'
 
   },
   createdAt:{
