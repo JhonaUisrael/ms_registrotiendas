@@ -4,10 +4,12 @@ import { dbpostgre } from '../connections/configpostgre.connection';
 import { Usuario } from '../database/usuario.db';
 import { Almacen } from '../database/almacen.db';
 import { Producto } from '../database/producto.db';
+import fileUpload from 'express-fileupload';
 
 import rutaAlmacen from '../routes/almacen.routes';
 import rutaUsuario from '../routes/usuario.routes';
 import rutaUProducto from '../routes/producto.routes';
+import rutaMultimedia from '../routes/multimedia.routes';
 
 export class Server {
 
@@ -58,6 +60,7 @@ export class Server {
     this.app.use('/api/almacen',rutaAlmacen);
     this.app.use('/api/usuario',rutaUsuario);
     this.app.use('/api/producto',rutaUProducto);
+    this.app.use('/api/multimedia',rutaMultimedia);
 
     
   }
@@ -72,6 +75,12 @@ export class Server {
     this.app.use(bodyparser.urlencoded({
       extended: true
     }));
+    this.app.use(
+      fileUpload({
+        useTempFiles: true,
+        tempFileDir: '/tmp/',
+      })
+    );
     /*  this.app.use(cors({
        origin: '*'
      })); */
