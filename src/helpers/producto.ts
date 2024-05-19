@@ -1,20 +1,26 @@
 import {Producto} from '../database/producto.db';
 import { ProductoCrearDTO, ProductoVerDTO, ProductoEditarDTO } from '../models/producto.model';
+import { respuestaGenerica } from '../models/respuesta.model';
 
 
 
 
-const crearProducto=async(crear:ProductoCrearDTO):Promise<Producto>=>{
+const crearProducto=async(crear:ProductoCrearDTO):Promise<respuestaGenerica>=>{
 
     let Productocreado:Producto=await Producto.create(crear,{
         raw:true
     })
 
-    return Productocreado;
+    return {
+
+        mensaje:'Producto creado correctamente',
+        satisfatorio:true,
+        datos: Productocreado
+    };
 };
 
 
-const obtenerProductoes=async():Promise<ProductoVerDTO[]>=>{
+const obtenerProductoes=async():Promise<respuestaGenerica>=>{
 
     let Productoes:ProductoVerDTO[]= await Producto.findAll({
         where:{
@@ -22,35 +28,53 @@ const obtenerProductoes=async():Promise<ProductoVerDTO[]>=>{
         }
     })
 
-    return Productoes;
+    return{
+
+        mensaje:'Productos Obtenidos exitosamente',
+        satisfatorio: true,
+        datos: Productoes
+
+    };
 };
 
-const inactivarProducto=async(id:number):Promise<ProductoVerDTO>=>{
+const inactivarProducto=async(id:number):Promise<respuestaGenerica>=>{
        
     let Productoes:Producto[]= (await Producto.update({estado:'I'},{
         where:{id,},
         returning:true
 }))[1];
 
-    return Productoes[0];
+    return {
+        mensaje:'Producto inactivado exitosamente',
+        satisfatorio: true,
+        datos: Productoes[0]
+    };
 };
 
-const editarProducto=async(id:number,editar:ProductoEditarDTO):Promise<ProductoVerDTO>=>{
+const editarProducto=async(id:number,editar:ProductoEditarDTO):Promise<respuestaGenerica>=>{
        
     let Productoes:any= await Producto.update(editar,{
         where:{id}
 });
 
-    return Productoes;
+    return {
+        mensaje:'Productos editado exitosamente',
+        satisfatorio: true,
+        datos: Productoes
+    };
 };
 
-const obtenerProductoId=async(id:number):Promise<Producto|null>=>{
+const obtenerProductoId=async(id:number):Promise<respuestaGenerica>=>{
        
     let producto= await Producto.findByPk(id,{
         raw:true
 });
 
-    return producto;
+    return {
+        mensaje:'Producto obtenido exitosamente',
+        satisfatorio: true,
+        datos: producto
+    };
 };
 
 
