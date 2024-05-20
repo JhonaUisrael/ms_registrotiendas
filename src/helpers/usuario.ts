@@ -35,10 +35,13 @@ const autenticarUsuario = async (login: UsuarioAutenticar): Promise<respuestaGen
             datos: null
         };
     }
-    let autenticado = desencriptarcontrasena(login.Contrasena, usuario.Contrasena);
+
+   
+    let autenticado =await desencriptarcontrasena(login.Contrasena, usuario.Contrasena);
+    console.log("autenticado",autenticado);
     if (!autenticado) {
         return {
-            mensaje: 'Contrseña incorrecta',
+            mensaje: 'Contraseña incorrecta',
             satisfatorio: false,
             datos: null
         };

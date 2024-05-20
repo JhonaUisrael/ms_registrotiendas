@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {crearProducto,obtenerProductoId,inactivarProducto,editarProducto, obtenerProductoes} from '../helpers/producto';
+import {crearProducto,obtenerProductoId,inactivarProducto,editarProducto, obtenerProductoes, obtenerProductosPorAlmacenId} from '../helpers/producto';
 
 
 const creaProducto=async(req:Request,res:Response)=>{
@@ -15,6 +15,14 @@ const listaProductoes=async(req:Request,res:Response)=>{
     const Productoes= await obtenerProductoes();
 
     res.json(Productoes);
+};
+
+const listaProductosAlmacen=async(req:Request,res:Response)=>{
+
+    const {id}=req.params;
+    const ProductosAlmacen= await obtenerProductosPorAlmacenId(parseInt(id));
+
+    res.json(ProductosAlmacen);
 };
 
 const inactivarProductoes=async(req:Request,res:Response)=>{
@@ -43,4 +51,4 @@ const obtenerProducto=async(req:Request,res:Response)=>{
     res.json(Productoes);
 };
 
-export {creaProducto,listaProductoes,inactivarProductoes,actualizarProducto,obtenerProducto};
+export {creaProducto,listaProductoes,inactivarProductoes,actualizarProducto,obtenerProducto,listaProductosAlmacen};
