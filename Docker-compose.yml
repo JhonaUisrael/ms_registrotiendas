@@ -1,7 +1,24 @@
 version: "3.3"
 
 services:
-   
+   msregistrotienda:
+     build:
+      context: .
+      dockerfile: Dockerfile
+     environment:
+      - CLOUDY_API=${CLOUDY_API}
+      - CLOUDY_SECRET=${CLOUDY_SECRET}
+      - CLOUDY_NAME=${CLOUDY_NAME}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=dbpsg-mercadista
+      - POSTGRES_PORT=5432
+     restart: always
+     depends_on:
+      - dbpsg-mercadista
+     ports:
+      - "8000:7000"
    dbpsg-mercadista:
      build:
       context: .
